@@ -1,0 +1,30 @@
+# Central record of the five-fold GLENDA experiment settings.
+project_name: glenda_xai_localization
+dataset:
+  name: GLENDA v1.0
+  selected_images: 572
+  pathology_images: 302
+  no_pathology_images: 270
+  official_lesion_instances: 520
+  image_size: 320
+cross_validation:
+  folds: 5
+  grouping_unit: video_id
+  protocol: grouped_stratified_cross_validation
+  evaluation: out_of_fold
+classifier:
+  architecture: EdgeNeXt-Small
+  initialization: ImageNet
+  checkpoint_selection: validation_roc_auc
+  threshold: 0.50
+segmenter:
+  architecture: U-Net
+  encoder: ResNet-34
+  encoder_initialization: ImageNet
+  checkpoint_selection: validation_positive_dice
+  loss: 0.5_weighted_bce_plus_0.5_soft_dice
+  positive_pixel_bce_weight: 5.0
+explainability:
+  method: Grad-CAM
+  threshold: 0.20
+  faithfulness_test: lesion_blur_vs_matched_nonlesion_blur
