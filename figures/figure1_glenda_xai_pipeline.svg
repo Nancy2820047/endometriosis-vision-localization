@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="850" viewBox="0 0 1600 850">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b4a5f"/>
+    </marker>
+    <style>
+      .title { font: 700 28px Arial, Helvetica, sans-serif; fill:#18202c; }
+      .subtitle { font: 17px Arial, Helvetica, sans-serif; fill:#526174; }
+      .box-title { font: 700 19px Arial, Helvetica, sans-serif; fill:#18202c; }
+      .box-text { font: 15px Arial, Helvetica, sans-serif; fill:#253244; }
+      .small { font: 13px Arial, Helvetica, sans-serif; fill:#8a3a00; }
+      .foot { font: italic 16px Arial, Helvetica, sans-serif; fill:#3c4d63; }
+      .arrow { stroke:#3b4a5f; stroke-width:3; fill:none; marker-end:url(#arrow); }
+      .dash { stroke:#b04a00; stroke-width:3; fill:none; stroke-dasharray:9,8; marker-end:url(#arrow); }
+      .box { stroke:#2f3b52; stroke-width:2.2; rx:18; ry:18; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="850" fill="white"/>
+  <text x="800" y="48" text-anchor="middle" class="title">Video-Level Cross-Validated Pipeline for Explainable Endometriosis Localization</text>
+  <text x="800" y="80" text-anchor="middle" class="subtitle">Frame-level pathology classification, direct segmentation, and quantitative explainability evaluation</text>
+
+  <!-- Top row -->
+  <rect x="48" y="132" width="324" height="136" class="box" fill="#dceeff"/>
+  <text x="210" y="164" text-anchor="middle" class="box-title">1. GLENDA v1.0 data</text>
+  <text x="210" y="198" text-anchor="middle" class="box-text"><tspan x="210" dy="0">572 selected laparoscopic images</tspan><tspan x="210" dy="23">302 pathology | 270 no-pathology</tspan><tspan x="210" dy="23">520 official lesion instances</tspan></text>
+
+  <rect x="448" y="132" width="324" height="136" class="box" fill="#e8f4e8"/>
+  <text x="610" y="164" text-anchor="middle" class="box-title">2. Canonical targets</text>
+  <text x="610" y="198" text-anchor="middle" class="box-text"><tspan x="610" dy="0">Merge official instances into</tspan><tspan x="610" dy="23">one binary lesion mask per image</tspan><tspan x="610" dy="23">for supervised segmentation</tspan></text>
+
+  <rect x="848" y="132" width="324" height="136" class="box" fill="#fff2cc"/>
+  <text x="1010" y="164" text-anchor="middle" class="box-title">3. Leakage-safe split</text>
+  <text x="1010" y="198" text-anchor="middle" class="box-text"><tspan x="1010" dy="0">Five-fold grouped cross-validation</tspan><tspan x="1010" dy="23">All frames from one video remain</tspan><tspan x="1010" dy="23">in one validation fold</tspan></text>
+
+  <rect x="1248" y="132" width="304" height="136" class="box" fill="#fbe5d6"/>
+  <text x="1400" y="164" text-anchor="middle" class="box-title">Held-out evaluation</text>
+  <text x="1400" y="210" text-anchor="middle" class="box-text"><tspan x="1400" dy="0">Every image is evaluated once</tspan><tspan x="1400" dy="23">by an out-of-fold model</tspan></text>
+
+  <path d="M372 200 L448 200" class="arrow"/>
+  <path d="M772 200 L848 200" class="arrow"/>
+  <path d="M1172 200 L1248 200" class="arrow"/>
+
+  <!-- Model row -->
+  <rect x="162" y="390" width="505" height="165" class="box" fill="#e4dfec"/>
+  <text x="414" y="424" text-anchor="middle" class="box-title">4A. ImageNet-pretrained classifier</text>
+  <text x="414" y="462" text-anchor="middle" class="box-text"><tspan x="414" dy="0">EdgeNeXt-Small</tspan><tspan x="414" dy="24">Input: laparoscopic image | Output: pathology probability</tspan><tspan x="414" dy="24">Best checkpoint selected by validation ROC-AUC</tspan></text>
+
+  <rect x="933" y="390" width="505" height="165" class="box" fill="#d9ead3"/>
+  <text x="1185" y="424" text-anchor="middle" class="box-title">4B. ImageNet-pretrained segmenter</text>
+  <text x="1185" y="462" text-anchor="middle" class="box-text"><tspan x="1185" dy="0">U-Net with ResNet-34 encoder</tspan><tspan x="1185" dy="24">Input: image + official binary mask | Output: lesion map</tspan><tspan x="1185" dy="24">Best checkpoint selected by validation Dice</tspan></text>
+
+  <path d="M1010 268 C900 310, 560 325, 414 390" class="arrow"/>
+  <path d="M1010 268 C1090 315, 1170 335, 1185 390" class="arrow"/>
+
+  <!-- Evaluation row -->
+  <rect x="30" y="650" width="355" height="145" class="box" fill="#dceeff"/>
+  <text x="207" y="683" text-anchor="middle" class="box-title">5A. Classifier evaluation</text>
+  <text x="207" y="720" text-anchor="middle" class="box-text"><tspan x="207" dy="0">Out-of-fold ROC curves and confusion matrix</tspan><tspan x="207" dy="22">AUC, sensitivity, specificity, and F1-score</tspan></text>
+
+  <rect x="425" y="650" width="355" height="145" class="box" fill="#fce4d6"/>
+  <text x="602" y="683" text-anchor="middle" class="box-title">5B. Grad-CAM explanation</text>
+  <text x="602" y="720" text-anchor="middle" class="box-text"><tspan x="602" dy="0">Class-specific attention heatmap</tspan><tspan x="602" dy="22">Spatial overlap with official lesion mask</tspan></text>
+
+  <rect x="820" y="650" width="355" height="145" class="box" fill="#e8f4e8"/>
+  <text x="997" y="683" text-anchor="middle" class="box-title">5C. Direct localization</text>
+  <text x="997" y="720" text-anchor="middle" class="box-text"><tspan x="997" dy="0">U-Net mask versus official lesion mask</tspan><tspan x="997" dy="22">Dice, IoU, false positives, and video-level analysis</tspan></text>
+
+  <rect x="1215" y="650" width="355" height="145" class="box" fill="#fff2cc"/>
+  <text x="1392" y="683" text-anchor="middle" class="box-title">5D. Faithfulness test</text>
+  <text x="1392" y="720" text-anchor="middle" class="box-text"><tspan x="1392" dy="0">Blur official lesion versus matched control</tspan><tspan x="1392" dy="22">Measure pathology-probability decrease</tspan></text>
+
+  <path d="M414 555 L207 650" class="arrow"/>
+  <path d="M414 555 L602 650" class="arrow"/>
+  <path d="M1185 555 L997 650" class="arrow"/>
+  <path d="M667 472 C950 520, 1240 575, 1392 650" class="arrow"/>
+
+  <path d="M780 724 L820 724" class="dash"/>
+  <text x="800" y="686" text-anchor="middle" class="small"><tspan x="800" dy="0">quantitative</tspan><tspan x="800" dy="16">comparison</tspan></text>
+
+  <text x="800" y="830" text-anchor="middle" class="foot">Primary contribution: compare post-hoc classifier attention with direct pixel-supervised segmentation, then test whether lesion pixels meaningfully affect classifier confidence.</text>
+</svg>
