@@ -1,0 +1,41 @@
+# Data, caches, and experiment outputs
+data/
+raw/
+processed/
+outputs/
+checkpoints/
+cache/
+*.zip
+*.tar
+*.tar.gz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Colab and Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+*.key
+*.pem
+credentials.json
+token.json
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary exports
+tmp/
+*.log
