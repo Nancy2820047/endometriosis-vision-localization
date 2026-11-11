@@ -44,8 +44,6 @@ Two model families are evaluated within the same five-fold split:
 
 Across the five held-out folds, the ImageNet-pretrained EdgeNeXt-Small classifier obtained a mean ROC-AUC of **0.965 ± 0.011**. The repository also includes out-of-fold ROC curves, a threshold-0.50 confusion matrix, Grad-CAM visualizations, and the complete manuscript figure set.
 
-The explanation analysis includes an intervention-based faithfulness test. It compares the classifier probability decrease after blurring an official lesion region with the decrease after blurring a matched non-lesion control region. The mean video-level decrease was 0.152 for lesion blur and 0.001 for matched control blur (difference 0.151; bootstrap 95% CI 0.113--0.193; one-sided Wilcoxon \(p=2.719\times10^{-23}\)).
-
 ## Quick start in Google Colab
 
 1. Open `notebooks/01_glenda_xai_localization.ipynb` in Google Colab.
