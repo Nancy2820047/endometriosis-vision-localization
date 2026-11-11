@@ -9,7 +9,7 @@ This repository provides the reproducible research workflow for evaluating two c
 
 The study uses the official GLENDA v1.0 dataset and a leakage-safe, video-level, five-fold cross-validation protocol. Every selected image receives one out-of-fold evaluation only.
 
-![End-to-end study pipeline](figures/figure1_glenda_xai_pipeline.svg)
+![End-to-end study pipeline](figures/figure1_glenda_xai_pipeline.png)
 
 ## Repository layout
 
@@ -40,21 +40,11 @@ Two model families are evaluated within the same five-fold split:
 | Lesion segmentation | U-Net with ImageNet-pretrained ResNet-34 encoder | Validation positive Dice | Dice, IoU, false-positive image rate |
 | Explainability | Grad-CAM from the classifier | Fixed pilot-selected threshold | Overlap with official masks and faithfulness testing |
 
-## Main results
+## Classifier evaluation and explainability
 
-Across the five held-out folds, the classifier obtained a mean ROC-AUC of **0.965 ± 0.011**. The direct segmentation model achieved a mean positive-image Dice score of **0.438 ± 0.049**. For held-out pathology videos, direct segmentation achieved mean localization Dice **0.459**, compared with **0.274** for classifier Grad-CAM.
+Across the five held-out folds, the ImageNet-pretrained EdgeNeXt-Small classifier obtained a mean ROC-AUC of **0.965 ± 0.011**. The repository also includes out-of-fold ROC curves, a threshold-0.50 confusion matrix, Grad-CAM visualizations, and the complete manuscript figure set.
 
-The faithfulness analysis compared the classifier probability decrease after blurring an official lesion region with the decrease after blurring a matched non-lesion control region. The mean video-level decrease was 0.152 for lesion blur and 0.001 for matched control blur (difference 0.151; bootstrap 95% CI 0.113--0.193; one-sided Wilcoxon \(p=2.719\times10^{-23}\)).
-
-These results support direct segmentation as the stronger spatial-localization method, while the counterfactual analysis provides evidence that classifier attention is clinically relevant rather than purely visual.
-
-## Literature context and responsible comparison
-
-The results are strong for this study's explicitly leakage-safe, video-grouped evaluation: the classifier achieved a mean five-fold ROC-AUC of 0.965, and direct segmentation improved held-out video-level localization relative to Grad-CAM (0.459 versus 0.274 mean Dice). They are consistent with the promising performance reported in the growing literature on AI-assisted endometriosis imaging.
-
-They must **not** be interpreted as a claim of numerical superiority over other published systems. Direct cross-paper comparisons are not valid unless the dataset version, image-selection rules, lesion labels, prevalence, split unit, and evaluation metrics are matched. This repository therefore emphasizes transparent within-dataset comparison: both localization approaches use the same fixed, video-level folds, and the Grad-CAM analysis is complemented by a lesion-versus-matched-control faithfulness test. Recent reviews likewise identify rigorous validation and transparent reporting as necessary for clinical translation.
-
-Useful context includes the [official GLENDA dataset release](https://ftp.itec.aau.at/datasets/GLENDA/), the earlier GLENDA-based study on [endometriosis detection and localization](https://doi.org/10.1007/s11042-021-11730-1), and a recent [systematic review of AI in endometriosis diagnosis](https://pmc.ncbi.nlm.nih.gov/articles/PMC13716802/). These sources provide context only; the numerical results reported here are derived from this repository's own out-of-fold evaluation.
+The explanation analysis includes an intervention-based faithfulness test. It compares the classifier probability decrease after blurring an official lesion region with the decrease after blurring a matched non-lesion control region. The mean video-level decrease was 0.152 for lesion blur and 0.001 for matched control blur (difference 0.151; bootstrap 95% CI 0.113--0.193; one-sided Wilcoxon \(p=2.719\times10^{-23}\)).
 
 ## Quick start in Google Colab
 
