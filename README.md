@@ -9,6 +9,8 @@ This repository provides the reproducible research workflow for evaluating two c
 
 The study uses the official GLENDA v1.0 dataset and a leakage-safe, video-level, five-fold cross-validation protocol. Every selected image receives one out-of-fold evaluation only.
 
+![End-to-end study pipeline](figures/figure1_glenda_xai_pipeline.svg)
+
 ## Repository layout
 
 ```text
@@ -20,8 +22,8 @@ glenda-xai-localization/
 ├── docs/
 │   ├── data_access.md                     # Dataset access and handling
 │   └── reproducibility.md                 # Reproduction protocol
-├── figures/                               # Paper-ready figures (added separately)
-├── paper/                                 # LaTeX manuscript and figure assets (added separately)
+├── figures/                               # Repository-level study-pipeline visual
+├── paper/                                 # Manuscript PDF, LaTeX source, and paper figures
 ├── requirements.txt
 └── .gitignore
 ```
@@ -45,6 +47,14 @@ Across the five held-out folds, the classifier obtained a mean ROC-AUC of **0.96
 The faithfulness analysis compared the classifier probability decrease after blurring an official lesion region with the decrease after blurring a matched non-lesion control region. The mean video-level decrease was 0.152 for lesion blur and 0.001 for matched control blur (difference 0.151; bootstrap 95% CI 0.113--0.193; one-sided Wilcoxon \(p=2.719\times10^{-23}\)).
 
 These results support direct segmentation as the stronger spatial-localization method, while the counterfactual analysis provides evidence that classifier attention is clinically relevant rather than purely visual.
+
+## Literature context and responsible comparison
+
+The results are strong for this study's explicitly leakage-safe, video-grouped evaluation: the classifier achieved a mean five-fold ROC-AUC of 0.965, and direct segmentation improved held-out video-level localization relative to Grad-CAM (0.459 versus 0.274 mean Dice). They are consistent with the promising performance reported in the growing literature on AI-assisted endometriosis imaging.
+
+They must **not** be interpreted as a claim of numerical superiority over other published systems. Direct cross-paper comparisons are not valid unless the dataset version, image-selection rules, lesion labels, prevalence, split unit, and evaluation metrics are matched. This repository therefore emphasizes transparent within-dataset comparison: both localization approaches use the same fixed, video-level folds, and the Grad-CAM analysis is complemented by a lesion-versus-matched-control faithfulness test. Recent reviews likewise identify rigorous validation and transparent reporting as necessary for clinical translation.
+
+Useful context includes the [official GLENDA dataset release](https://ftp.itec.aau.at/datasets/GLENDA/), the earlier GLENDA-based study on [endometriosis detection and localization](https://doi.org/10.1007/s11042-021-11730-1), and a recent [systematic review of AI in endometriosis diagnosis](https://pmc.ncbi.nlm.nih.gov/articles/PMC13716802/). These sources provide context only; the numerical results reported here are derived from this repository's own out-of-fold evaluation.
 
 ## Quick start in Google Colab
 
